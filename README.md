@@ -1,6 +1,8 @@
 # Kota-ExConverter
 CLI that convert the file format of specified image. Written in Golang.
 
+現在実装中です
+
 # Specification
 ## Flags
 - 1st argument : Source image relative path
