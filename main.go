@@ -1,19 +1,19 @@
 package main
 
 import (
+	"./cmd"
 	"flag"
 	"fmt"
 	"log"
 	"os"
-	"./cmd"
 )
 
-func GetFlagsAsArray() []string{
+func GetFlagsAsArray() []string {
 	var args []string
 	flag.Parse()
 	if argsTmp := flag.Args(); len(argsTmp) >= 1 {
 		args = argsTmp
-	}else {
+	} else {
 		log.Fatal("1 command line argument is required!!!")
 		os.Exit(1)
 	}
