@@ -1,8 +1,8 @@
 class Kec < Formula
   desc "Image format extension converter. Only for jpg/png/gif image. Poor"
-  homepage "https://github.com/kota-yata/kec"
-  url "https://github.com/kota-yata/kec/releases/download/0.0.1/kec"
-  sha256 "6a7d482dc4341ff8c7b2f8cabc6ffa73937c045c6f7368538624087c5947a1ba"
+  homepage ""
+  url "https://github.com/kota-yata/kec/archive/1.0.0.tar.gz"
+  sha256 "9a569bae71ff0ce6a9fdc6e7e68a878480ed023997c5bd8ab3e54b5a22c46022"
   license ""
 
   def install
