@@ -29,7 +29,6 @@ func main() {
 	KEC := cli.NewApp()
 	KEC.Name = "KEC"
 	KEC.Usage = "Convert image format to jpg/png/gif"
-	KEC.Version = "0.0.1"
 	KEC.Action = kec
 	KEC.Run(os.Args)
 }
