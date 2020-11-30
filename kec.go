@@ -1,15 +1,17 @@
 package main
 
 import (
-	"./cmd"
 	"flag"
 	"fmt"
-	"github.com/urfave/cli"
 	"log"
 	"os"
 	"strconv"
+
+	convert "./cmd"
+	"github.com/urfave/cli"
 )
 
+// GetFlagsAsArray Get argument from stdin
 func GetFlagsAsArray() []string {
 	var args []string
 	flag.Parse()
@@ -36,10 +38,6 @@ func kec(c *cli.Context) error {
 	args := GetFlagsAsArray()
 	srcImagePath := args[0]
 	fileInfoArray := convert.GetInfoOfSpecifiedImage(srcImagePath)
-	if len(fileInfoArray) < 6 {
-		log.Fatal("1 command line argument is required!!!")
-		os.Exit(1)
-	}
 	fmt.Println("-----Source File Information-----")
 	fmt.Printf("Is the relative path Directory? : %v\n", fileInfoArray[0])
 	fmt.Printf("File Name : %v\n", fileInfoArray[1])

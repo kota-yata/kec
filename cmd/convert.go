@@ -1,21 +1,24 @@
 package convert
 
 import (
-	"golang.org/x/image/draw"
 	"image"
 	"image/gif"
-	_ "image/gif"
 	"image/jpeg"
-	_ "image/jpeg"
 	"image/png"
+
+	// underbar
+	_ "image/gif"
+	_ "image/jpeg"
 	_ "image/png"
 	"log"
 	"os"
 	"regexp"
 	"strconv"
+
+	"golang.org/x/image/draw"
 )
 
-// Return file data specified by relative path
+// OpenImgPath Return file data specified by relative path
 func OpenImgPath(srcImagePath string) *os.File {
 	srcImgFile, OpenErr := os.Open(srcImagePath)
 	ErrorHandling(OpenErr)
@@ -23,8 +26,8 @@ func OpenImgPath(srcImagePath string) *os.File {
 	return srcImgFile
 }
 
-// Return file information if specified relative path indicates image file
-func GetInfoOfSpecifiedImage(srcImagePath string) [6]string{
+// GetInfoOfSpecifiedImage Return file information if specified relative path indicates image file
+func GetInfoOfSpecifiedImage(srcImagePath string) [6]string {
 	srcImgFile := OpenImgPath(srcImagePath)
 	defer srcImgFile.Close()
 	fileInfo, StatErr := srcImgFile.Stat()
@@ -33,7 +36,7 @@ func GetInfoOfSpecifiedImage(srcImagePath string) [6]string{
 	config, format, DecodeConfigErr := image.DecodeConfig(srcImgFile)
 	ErrorHandling(DecodeConfigErr)
 
-	fileInfoArray := [6] string{
+	fileInfoArray := [6]string{
 		strconv.FormatBool(fileInfo.IsDir()),
 		fileInfo.Name(),
 		strconv.FormatInt(fileInfo.Size(), 10),
@@ -45,7 +48,7 @@ func GetInfoOfSpecifiedImage(srcImagePath string) [6]string{
 	return fileInfoArray
 }
 
-// Return redrawn image with Catmull-Rom spline curve
+// SaveNewImgToEncode Return redrawn image with Catmull-Rom spline curve
 func SaveNewImgToEncode(srcImagePath string, width int, height int) image.Image {
 	srcImgFile := OpenImgPath(srcImagePath)
 	defer srcImgFile.Close()
@@ -60,6 +63,7 @@ func SaveNewImgToEncode(srcImagePath string, width int, height int) image.Image 
 	return dstImg
 }
 
+// EncodeNewImg Encode new image with specified information
 func EncodeNewImg(dstImagePath string, dstImg image.Image) {
 	dstImgFile, CreateErr := os.Create(dstImagePath)
 	ErrorHandling(CreateErr)
@@ -79,6 +83,7 @@ func EncodeNewImg(dstImagePath string, dstImg image.Image) {
 	}
 }
 
+// GetFileExtension Get format extension from end of filename
 func GetFileExtension(filePath string) string {
 	REGEX := regexp.MustCompile(`(?i)(\.jpg|\.jpeg|\.gif|\.png)$`)
 	stringToBeReturned := REGEX.FindString(filePath)
