@@ -6,10 +6,6 @@ import (
 	"image/jpeg"
 	"image/png"
 
-	// underbar
-	_ "image/gif"
-	_ "image/jpeg"
-	_ "image/png"
 	"log"
 	"os"
 	"regexp"
@@ -49,14 +45,31 @@ func GetInfoOfSpecifiedImage(srcImagePath string) [6]string {
 }
 
 // SaveNewImgToEncode Return redrawn image with Catmull-Rom spline curve
-func SaveNewImgToEncode(srcImagePath string, width int, height int) image.Image {
+func SaveNewImgToEncode(srcImagePath string, width int, height int, isCompressMode string) image.Image {
 	srcImgFile := OpenImgPath(srcImagePath)
 	defer srcImgFile.Close()
 	srcImg, _, DecodeErr := image.Decode(srcImgFile)
 	ErrorHandling(DecodeErr)
 
 	srcRct := srcImg.Bounds()
-	dstImg := image.NewRGBA(image.Rect(0, 0, width, height))
+
+	var dstImg *image.RGBA
+
+	if isCompressMode == "compress" {
+		dstWidth := width
+		dstHeight := height
+		if width > 1024 {
+			dstWidth = 1024
+			dstHeight = height * 1024 / width
+		} else {
+			dstWidth = 512
+			dstHeight = height * 512 / width
+		}
+		dstImg = image.NewRGBA(image.Rect(0, 0, dstWidth, dstHeight))
+	} else {
+		dstImg = image.NewRGBA(image.Rect(0, 0, width, height))
+	}
+
 	dstRct := dstImg.Bounds()
 	draw.CatmullRom.Scale(dstImg, dstRct, srcImg, srcRct, draw.Over, nil)
 

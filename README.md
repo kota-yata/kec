@@ -1,4 +1,4 @@
-# Kota-ExConverter
+# Kota-ExConverter/Compressor
 CLI to convert specified jpg/png/gif format image to jpg/png/gif format
 
 ## GLOBAL OPTIONS
